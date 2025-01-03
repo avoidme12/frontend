@@ -1,0 +1,72 @@
+'use client'
+
+import Navbar from "./Navbar";
+import SongItem from "./SongItem";
+import {albumsData, mostPopularMusic, songsData} from "../assets/assets.js";
+import AlbumItem from "./MusicAlbum";
+import {useContext} from "react";
+import {PlayerContext} from "@/context/PlayerContext.tsx";
+
+export default function DisplayHome() {
+
+
+    const {page} = useContext(PlayerContext)
+
+    const pagesRender = () => {
+        if(page === 0){
+            return (
+                <>
+                    <Navbar/>
+                    <div className='mb-4'>
+                        <h1 className='my-5 font-bold text-2xl'>Плейлисты</h1>
+                        <div className='flex overflow-auto'>
+                            {albumsData.map((item, index) => (
+                                <AlbumItem key={index} name={item.name} desc={item.desc} id={item.id} image={item.image}/>))}
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <h1 className='my-5 font-bold text-2xl'>Самые популярные</h1>
+                        <div className='flex overflow-auto'>
+                            {mostPopularMusic.map((item,index) => (
+                                <SongItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id} />))}
+                        </div>
+                    </div>
+                </>
+            )
+        }
+        else if(page === 1){
+            return (
+                <>
+                    <Navbar/>
+                    <div className='mb-4'>
+                        <h1 className='my-5 font-bold text-2xl'>Музыка</h1>
+                        <div className='overflow-auto h-full grid grid-cols-6'>
+                            {songsData.map((item,index) => (
+                                <SongItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id} />))}
+                        </div>
+                    </div>
+                </>
+            )
+        }
+        else if (page === 2){
+            return (
+                <>
+                    <Navbar/>
+                    <div className='mb-4'>
+                        <h1 className='my-5 font-bold text-2xl'>Плейлисты</h1>
+                        <div className='overflow-auto h-full grid grid-cols-6'>
+                            {albumsData.map((item, index) => (
+                                <AlbumItem key={index} name={item.name} desc={item.desc} id={item.id} image={item.image}/>))}
+                        </div>
+                    </div>
+                </>
+            )
+        }
+    }
+
+    return(
+        <>
+            {pagesRender()}
+        </>
+    )
+}
