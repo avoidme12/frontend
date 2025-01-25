@@ -4,20 +4,23 @@ import React, {useContext, useRef, useState} from 'react';
 import {HomeIcon, SearchIcon} from "lucide-react";
 import {PlayerContext} from "../context/PlayerContext.tsx";
 import {assets} from "@/assets/assets";
+import {useNavigate} from "react-router-dom";
 
 export default function Sidebar(){
 
     const [cat, setCat] = useState(false)
     const yuppieRef = useRef(null)
     const {playWithId, audioRef,track,play,mute} = useContext(PlayerContext)
+    const navigate = useNavigate()
 
     return(
         <div className='w-[25%] h-full p-2 flex-col gap-2 text-white lg:flex'>
             <div className='bg-[#121212] h-[20%] rounded md:flex flex-col justify-around'>
-                <div className='items-center gap-3 pl-8 cursor-pointer grid grid-cols-1'>
+                <div className='items-center gap-3 pl-8 cursor-pointer grid grid-cols-1' onClick={() => navigate(`/`)}>
                     <HomeIcon className='w-6 flex left-6'/>
-                    <p className='font-bold'>Домашняя страница</p></div>
-                <div className='md:shrink-0 items-center gap-3 pl-8 cursor-pointer grid grid-cols-1'>
+                    <p className='font-bold'>Домашняя страница</p>
+                </div>
+                <div className='md:shrink-0 items-center gap-3 pl-8 cursor-pointer grid grid-cols-1' onClick={() => navigate(`/search`)}>
                     <SearchIcon className='w-6'/>
                     <p className='font-bold'>Поиск</p>
                 </div>

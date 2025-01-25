@@ -5,6 +5,7 @@ import {useEffect, useRef} from "react";
 import {Route, Routes, useLocation} from "react-router";
 import {albumsData} from "../assets/assets.js";
 import DisplayAlbum from "./DisplayAlbum";
+import DisplaySearch from "@/components/DisplaySearch.tsx";
 
 export default function Display() {
 
@@ -35,6 +36,7 @@ export default function Display() {
              className='w-[100%] m-2 px-6 pt-4 rounded bg-[#121212] text-white overflow-auto lg:w-[75%] lg:ml-0'>
             <Routes>
                 <Route path='/' element={<DisplayHome/>} />
+                <Route path='/search' element={<DisplaySearch/>} />
                 {changePlaylist()}
             </Routes>
         </div>

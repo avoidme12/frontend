@@ -73,7 +73,7 @@ export const assets = {
 }
 
 export const albumsData = [
-    {   
+    {
         id:0,
         name: "Ambient playlist",
         image: img1,

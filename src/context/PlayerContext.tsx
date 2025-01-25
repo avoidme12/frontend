@@ -20,6 +20,29 @@ const PlayerContextProvider = (props) => {
     const [playStatus, setPlayStatus] = useState(false)
     const [muted, setMuted] = useState(false)
 
+    useEffect(() => {
+        if (audioRef.current) {
+            // Now TypeScript knows that myRef.current is not null
+            audioRef.current.focus()
+        }
+        if (seekBg.current) {
+            // Now TypeScript knows that myRef.current is not null
+            seekBg.current.focus()
+        }
+        if (seekBar.current) {
+            // Now TypeScript knows that myRef.current is not null
+            seekBar.current.focus()
+        }
+        if (volumeBg.current) {
+            // Now TypeScript knows that myRef.current is not null
+            volumeBg.current.focus()
+        }
+        if (volumeBar.current) {
+            // Now TypeScript knows that myRef.current is not null
+            volumeBar.current.focus()
+        }
+    }, []);
+
     const [time,setTime] = useState({
         currentTime:{
             second:'',
@@ -32,11 +55,10 @@ const PlayerContextProvider = (props) => {
     })
     
     const play = () => {
-        audioRef.current.play();
+        audioRef!.current.play();
         setPlayStatus(true)
         console.log(playStatus)
     }
-
     const mute = () => {
         if (muted){
             setMuted(false)
@@ -47,14 +69,14 @@ const PlayerContextProvider = (props) => {
     }
 
     const pause = () => {
-        audioRef.current.pause();
+        audioRef!.current.pause();
         setPlayStatus(false)
         console.log(playStatus)
     }
 
     const playWithId = async (id) => {
         await setTrack(songsData[id])
-        await audioRef.current.play()
+        await audioRef!.current.play()
         setPlayStatus(true)
         console.log(playStatus)
     }
@@ -62,7 +84,7 @@ const PlayerContextProvider = (props) => {
     const previous = async () => {
         if(track.id > 0) {
             await setTrack(songsData[track.id - 1])
-            await audioRef.current.play()
+            await audioRef!.current.play()
             setPlayStatus(true)
             console.log(playStatus)
         }
@@ -71,7 +93,7 @@ const PlayerContextProvider = (props) => {
     const next = async () => {
         if(track.id < songsData.length - 1) {
             await setTrack(songsData[track.id + 1])
-            await audioRef.current.play()
+            await audioRef!.current.play()
             setPlayStatus(true)
             console.log(playStatus)
         }
@@ -82,7 +104,7 @@ const PlayerContextProvider = (props) => {
             if (playLooping) {
                 console.log('повтор')
                 await setTrack(songsData[track.id])
-                audioRef.current.play()
+                audioRef!.current.play()
                 setPlayStatus(true)
                 console.log(playStatus)
             }
@@ -90,14 +112,14 @@ const PlayerContextProvider = (props) => {
                 if (track.id < songsData.length - 1) {
                     console.log('следующая')
                     await setTrack(songsData[track.id + 1])
-                    audioRef.current.play()
+                    audioRef!.current.play()
                     setPlayStatus(true)
                     console.log(playStatus)
                 }
                 else {
                     console.log('с начала')
                     await setTrack(songsData[0])
-                    audioRef.current.play()
+                    audioRef!.current.play()
                     setPlayStatus(true)
                     console.log(playStatus)
                 }
@@ -106,38 +128,38 @@ const PlayerContextProvider = (props) => {
 
 
     const seekSong = async (e) => {
-        audioRef.current.currentTime = ((e.nativeEvent.offsetX / seekBg.current.offsetWidth) * audioRef.current.duration)
+        audioRef!.current.currentTime = ((e.nativeEvent.offsetX / seekBg.current.offsetWidth) * audioRef.current.duration)
     }
 
     const seekVolume = async (e) => {
-        audioRef.current.volume = ((e.nativeEvent.offsetX / volumeBg.current.offsetWidth))
-        console.log(audioRef.current.volume)
+        audioRef!.current.volume = ((e.nativeEvent.offsetX / volumeBg.current.offsetWidth))
+        console.log(audioRef!.current.volume)
         console.log(volumeBar.current.style.width)
     }
 
     useEffect(() => {
         setTimeout(() =>{
-            audioRef.current.ontimeupdate = () => {
+            audioRef!.current.ontimeupdate = () => {
                 console.log('work')
-                seekBar.current.style.width = (Math.floor(audioRef.current.currentTime/audioRef.current.duration * 100)) + "%"
+                seekBar.current.style.width = (Math.floor(audioRef!.current.currentTime/audioRef!.current.duration * 100)) + "%"
                 setTime({
                     currentTime:{
-                        second: Math.floor(audioRef.current.currentTime % 60) < 10 ? `0${Math.floor(audioRef.current.currentTime % 60)}` : `${Math.floor(audioRef.current.currentTime % 60)}`,
-                        minute: `${Math.floor(audioRef.current.currentTime / 60)}`,
+                        second: Math.floor(audioRef!.current.currentTime % 60) < 10 ? `0${Math.floor(audioRef!.current.currentTime % 60)}` : `${Math.floor(audioRef.current.currentTime % 60)}`,
+                        minute: `${Math.floor(audioRef!.current.currentTime / 60)}`,
                     },
                     totalTime:{
-                        second: Math.floor(audioRef.current.duration % 60) < 10 ? `0${Math.floor(audioRef.current.duration % 60)}` : `${Math.floor(audioRef.current.duration % 60)}`,
-                        minute: Math.floor(audioRef.current.duration / 60),
+                        second: Math.floor(audioRef!.current.duration % 60) < 10 ? `0${Math.floor(audioRef.current.duration % 60)}` : `${Math.floor(audioRef.current.duration % 60)}`,
+                        minute: Math.floor(audioRef!.current.duration / 60),
                     }
                 })
             }
-            audioRef.current.onvolumechange = () => {
+            audioRef!.current.onvolumechange = () => {
                 if (!muted){
-                    volumeBar.current.style.width = (audioRef.current.volume * 100) + '%'
+                    volumeBar.current.style.width = (audioRef!.current.volume * 100) + '%'
                 }
             }
         }, 1000);
-    }, [audioRef, muted])
+    }, [audioRef!, muted])
 
 
     const contextValue = {
