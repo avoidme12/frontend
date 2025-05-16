@@ -1,13 +1,13 @@
 'use client'
 
 import {createContext, useEffect, useRef, useState} from "react";
-import {songsData} from "../assets/assets.js";
+import {songsData} from "@/assets/assets";
 
 export const PlayerContext = createContext({})
 
 const PlayerContextProvider = (props) => {
 
-    const audioRef = useRef(null);
+    const audioRef = useRef(0);
     const seekBg = useRef(null);
     const seekBar = useRef(null);
 
@@ -20,29 +20,6 @@ const PlayerContextProvider = (props) => {
     const [playStatus, setPlayStatus] = useState(false)
     const [muted, setMuted] = useState(false)
 
-    useEffect(() => {
-        if (audioRef.current) {
-            // Now TypeScript knows that myRef.current is not null
-            audioRef.current.focus()
-        }
-        if (seekBg.current) {
-            // Now TypeScript knows that myRef.current is not null
-            seekBg.current.focus()
-        }
-        if (seekBar.current) {
-            // Now TypeScript knows that myRef.current is not null
-            seekBar.current.focus()
-        }
-        if (volumeBg.current) {
-            // Now TypeScript knows that myRef.current is not null
-            volumeBg.current.focus()
-        }
-        if (volumeBar.current) {
-            // Now TypeScript knows that myRef.current is not null
-            volumeBar.current.focus()
-        }
-    }, []);
-
     const [time,setTime] = useState({
         currentTime:{
             second:'',
@@ -53,7 +30,7 @@ const PlayerContextProvider = (props) => {
             minute:0
         }
     })
-    
+
     const play = () => {
         audioRef!.current.play();
         setPlayStatus(true)
@@ -100,30 +77,30 @@ const PlayerContextProvider = (props) => {
     }
 
     const switchNextSong = async () => {
-            console.log('переключаем')
-            if (playLooping) {
-                console.log('повтор')
-                await setTrack(songsData[track.id])
+        console.log('переключаем')
+        if (playLooping) {
+            console.log('повтор')
+            await setTrack(songsData[track.id])
+            audioRef!.current.play()
+            setPlayStatus(true)
+            console.log(playStatus)
+        }
+        else {
+            if (track.id < songsData.length - 1) {
+                console.log('следующая')
+                await setTrack(songsData[track.id + 1])
                 audioRef!.current.play()
                 setPlayStatus(true)
                 console.log(playStatus)
             }
             else {
-                if (track.id < songsData.length - 1) {
-                    console.log('следующая')
-                    await setTrack(songsData[track.id + 1])
-                    audioRef!.current.play()
-                    setPlayStatus(true)
-                    console.log(playStatus)
-                }
-                else {
-                    console.log('с начала')
-                    await setTrack(songsData[0])
-                    audioRef!.current.play()
-                    setPlayStatus(true)
-                    console.log(playStatus)
-                }
+                console.log('с начала')
+                await setTrack(songsData[0])
+                audioRef!.current.play()
+                setPlayStatus(true)
+                console.log(playStatus)
             }
+        }
     }
 
 

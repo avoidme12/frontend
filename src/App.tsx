@@ -16,7 +16,7 @@ const App = () => {
               <Display/>
           </div>
           <Player/>
-          <audio ref={audioRef} src={track?.file} onEnded={switchNextSong} onLoadStartCapture={play}
+          <audio autoPlay={false} ref={audioRef} src={track?.file} onEnded={switchNextSong} onLoadStartCapture={play}
           muted={muted}></audio>
       </div>
   )

@@ -1,7 +1,8 @@
-import {albumsData, songsData} from "@/assets/assets";
+import {albumsData, songsData} from "@/assets/assets.js";
 import AlbumItem from "@/components/MusicAlbum.tsx";
 import React, {useState} from "react";
 import SongItem from "@/components/SongItem.tsx";
+import NotFound from "@/components/NotFound.tsx";
 
 export default function DisplaySearch(){
 
@@ -11,6 +12,8 @@ export default function DisplaySearch(){
         setSearchValue(e)
         console.log(searchValue)
     }
+
+    document.title = 'Next Music | Поиск'
 
     const undef = [undefined]
 
@@ -55,16 +58,20 @@ export default function DisplaySearch(){
             <div>
                 <div className='mb-4'>
                     <h1 className='my-5 font-bold text-2xl'>Плейлисты</h1>
-                    <div className='flex overflow-auto'>
-                        {listAlbum()[0] === undef[0] ? 'Ничего не найдено :(' : listAlbum().map((item, index) => (
+                    <div className='overflow-auto h-full grid grid-cols-6'>
+                        {listAlbum()[0] === undef[0] ? (
+                            <NotFound/>
+                        ) : listAlbum().map((item, index) => (
                             <AlbumItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id} />
                         ))}
                     </div>
                 </div>
                 <div className='mb-4'>
                     <h1 className='my-5 font-bold text-2xl'>Музыка</h1>
-                    <div className='flex overflow-auto'>
-                        {listSongs()[0] === undef[0] ? 'Ничего не найдено :(' : listSongs().map((item, index) => (
+                    <div className='overflow-auto h-full grid grid-cols-6'>
+                        {listSongs()[0] === undef[0] ? (
+                            <NotFound/>
+                        ) : listSongs().map((item, index) => (
                             <SongItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id}/>
                         ))}
                     </div>

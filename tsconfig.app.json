@@ -28,5 +28,8 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "../../../../../Program Files/JetBrains/WebStorm2024.1/plugins/javascript-impl/jsLanguageServicesImpl/external/lib.es5.d.ts"
+  ]
 }

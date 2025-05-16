@@ -1,11 +1,12 @@
 'use client'
 
-import DisplayHome from "./DisplayHome";
+import DisplayHome from "./DisplayHome.tsx";
 import {useEffect, useRef} from "react";
 import {Route, Routes, useLocation} from "react-router";
-import {albumsData} from "../assets/assets.js";
-import DisplayAlbum from "./DisplayAlbum";
+import {albumsData} from "@/assets/assets.js";
+import DisplayAlbum from "./DisplayAlbum.tsx";
 import DisplaySearch from "@/components/DisplaySearch.tsx";
+import DisplayDashboard from "@/components/DisplayDashboard.tsx";
 
 export default function Display() {
 
@@ -33,10 +34,11 @@ export default function Display() {
 
     return (
         <div ref={displayRef}
-             className='w-[100%] m-2 px-6 pt-4 rounded bg-[#121212] text-white overflow-auto lg:w-[75%] lg:ml-0'>
+             className='w-[80%] m-2 px-6 pt-4 rounded bg-[#121212] text-white overflow-auto'>
             <Routes>
                 <Route path='/' element={<DisplayHome/>} />
                 <Route path='/search' element={<DisplaySearch/>} />
+                <Route path='/dashboard' element={<DisplayDashboard/>}/>
                 {changePlaylist()}
             </Routes>
         </div>

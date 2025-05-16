@@ -3,7 +3,7 @@
 import {useContext} from 'react';
 import Navbar from "./Navbar.tsx";
 import { useParams } from "react-router-dom";
-import {albumsData, assets, relaxedSongsData} from "../assets/assets.js";
+import {albumsData, assets, relaxedSongsData} from "@/assets/assets.js";
 import {PlayerContext} from "../context/PlayerContext.tsx";
 
 export default function DisplayAlbum() {
@@ -54,7 +54,6 @@ export default function DisplayAlbum() {
                         </p>
                         <p className='text-[15px]'>{albumInfo.name}</p>
                         <p className='text-[15px] sm:block'>{item.desc}</p>
-                        <p className='text-[15px] text-center'>{item.minutes}:{item.seconds}</p>
                     </div>
                 ))
             }

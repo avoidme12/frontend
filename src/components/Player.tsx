@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {PlayerContext} from "../context/PlayerContext.tsx";
-import {assets} from '../assets/assets.js'
-import {useToast} from "@/hooks/use-toast.ts";
+import {assets} from '@/assets/assets.js'
+import {useToast} from "../hooks/use-toast.ts";
 import {Volume2, VolumeX} from "lucide-react";
 
 export default function Player() {
@@ -24,10 +24,11 @@ export default function Player() {
             <div className='flex flex-col absolute gap-1 ml-[36vw] justify-center items-center m-auto'>
                 <div className='flex gap-4'>
                     <img className='w-4 cursor-pointer' src={assets.plays_icon} alt="" onClick={() => {
+                        console.log(track?.file.duration)
                         toast({
                             title: `Сейчас играет: ${track.name} - ${track.desc}`,
                             description: `
-                            Текущее время: ${time.currentTime.minute}:${time.currentTime.second} - ${track.minutes}:${track.seconds}
+                            Текущее время: ${time.currentTime.minute}:${time.currentTime.second} - ${audioRef === null ? 0 : Math.floor(audioRef?.current.duration / 60)}:${audioRef === null ? 0 : Math.floor(audioRef?.current.duration % 60) < 10 ? `0${Math.floor(audioRef?.current.duration % 60)}` : `${Math.floor(audioRef?.current.duration % 60)}`}
                             Громкость: ${muted ? '0' : audioRef.current.volume * 100}%`
                         })
                     }}/>
@@ -59,7 +60,7 @@ export default function Player() {
                          className='w-[60vh] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
                         <hr ref={seekBar} className='h-1 border-none w-0 bg-green-800 rounded-full'/>
                     </div>
-                    <p>{track.minutes}:{track.seconds}</p>
+                    <p>{audioRef === null ? 0 : Math.floor(audioRef?.current.duration / 60)}:{audioRef === null ? 0 : Math.floor(audioRef?.current.duration % 60) < 10 ? `0${Math.floor(audioRef?.current.duration % 60)}` : `${Math.floor(audioRef?.current.duration % 60)}`}</p>
                 </div>
             </div>
             <div className='lg:flex items-center gap-2 opacity-75'>

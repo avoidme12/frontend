@@ -3,8 +3,8 @@
 import React, {useContext, useRef, useState} from "react";
 import {ArrowLeft, ArrowRight} from "lucide-react";
 import {useNavigate} from "react-router-dom";
-import {PlayerContext} from "@/context/PlayerContext.tsx";
-import Form from "@/components/form.tsx";
+import {PlayerContext} from "../context/PlayerContext.tsx";
+
 
 export default function Navbar() {
     const allRef = useRef(null)
@@ -23,14 +23,15 @@ export default function Navbar() {
                                 className='w-6 bg-black rounded-2xl p-[2px] cursor-pointer'/>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <h1 onClick={() => {
-                        window.open("https://www.donationalerts.com/r/avoidme12", "_blank")
-                    }}
-                        className='bg-black text-white py-1 px-3 rounded-2xl text-[15px] cursor-pointer hover:bg-orange-400 transition-all ease-in duration-300'>Поддержать
-                        меня</h1>
+                    {/*<h1 onClick={() => {*/}
+                    {/*    window.open("https://www.donationalerts.com/r/avoidme12", "_blank")*/}
+                    {/*}}*/}
+                    {/*    className='bg-black text-white py-1 px-3 rounded-2xl text-[15px] cursor-pointer hover:bg-orange-400 transition-all ease-in duration-300'>Поддержать*/}
+                    {/*    меня</h1>*/}
                     <h1 onClick={() => {
                         window.open("https://github.com/avoidme12?tab=repositories")
-                    }} className='bg-black py-1 px-3 rounded-2xl text-[15px] cursor-pointer hover:bg-white hover:text-black transition-all ease-in duration-300'>Мой GitHub</h1>
+                    }}
+                        className='bg-black py-1 px-3 rounded-2xl text-[15px] cursor-pointer hover:bg-white hover:text-black transition-all ease-in duration-300'>GitHub</h1>
                 </div>
             </div>
             <div className='flex items-center gap-2 mt-4'>
@@ -71,7 +72,6 @@ export default function Navbar() {
                     podcastsRef.current.style.background = 'white'
                 }} className='font-semibold bg-black px-4 py-1 rounded-2xl cursor-pointer transition-all ease-out duration-150'>Плейлисты</button>
             </div>
-            {/*<Form/>*/}
         </>
     )
 }
