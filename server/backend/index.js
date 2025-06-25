@@ -70,8 +70,15 @@ app.get('/api/music', (req, res) => {
     res.json(musics)
 })
 
+app.delete('/api/music/:id', async (req, res) => {
+    const {id} = req.params
+    let realid = parseInt(id)
+    console.log(id)
+    console.log(realid === 0)
+    musics.splice(realid === 0 ? realid : realid - 1, 1)
+})
+
 
 app.listen(PORT, () => {
     console.log(`Робит на порте ${PORT}`)
 })
-
