@@ -6,18 +6,19 @@ import {songsData} from "../assets/assets.js";
 export const PlayerContext = createContext({})
 
 const PlayerContextProvider = (props) => {
+
     const audioRef = useRef({
         ontimeupdate: undefined, currentTime: undefined, duration: 0, onvolumechange: undefined, volume: undefined,
 
 
         play() {
-            
+
         },
         pause() {
-            
+
         }
     });
-    const seekBg = useRef(null);
+    const seekBg = useRef(null); // массив сразу с бд
     const seekBar = useRef(null);
 
     const volumeBg = useRef(null)
@@ -40,8 +41,8 @@ const PlayerContextProvider = (props) => {
         }
     })
 
-    const play = () => {
-        audioRef.current.play();
+    const play = async () => {
+        const play = await audioRef.current.play();
         setPlayStatus(true)
         console.log(playStatus)
     }
@@ -61,24 +62,31 @@ const PlayerContextProvider = (props) => {
     }
 
     const playWithId = async (id) => {
-        await setTrack(songsData[id])
+        const selectedTrack = songsData.find((element) => {
+            return element.id === id
+        })
+        setTrack(selectedTrack)
         await audioRef.current.play()
         setPlayStatus(true)
-        console.log(playStatus)
     }
 
     const previous = async () => {
         if(track.id > 0) {
-            await setTrack(songsData[track.id - 1])
+            const selectedTrack = songsData.find((element) => {
+                return element.id === track.id - 1
+            })
+            setTrack(selectedTrack)
             await audioRef.current.play()
             setPlayStatus(true)
-            console.log(playStatus)
         }
     }
 
     const next = async () => {
         if(track.id < songsData.length - 1) {
-            await setTrack(songsData[track.id + 1])
+            const selectedTrack = songsData.find((element) => {
+                return element.id === track.id + 1
+            })
+            setTrack(selectedTrack)
             await audioRef.current.play()
             setPlayStatus(true)
             console.log(playStatus)
@@ -89,7 +97,10 @@ const PlayerContextProvider = (props) => {
         console.log('переключаем')
         if (playLooping) {
             console.log('повтор')
-            await setTrack(songsData[track.id])
+            const selectedTrack = songsData.find((element) => {
+                return element.id === track.id
+            })
+            setTrack(selectedTrack)
             audioRef.current.play()
             setPlayStatus(true)
             console.log(playStatus)
@@ -97,7 +108,10 @@ const PlayerContextProvider = (props) => {
         else {
             if (track.id < songsData.length - 1) {
                 console.log('следующая')
-                await setTrack(songsData[track.id + 1])
+                const selectedTrack = songsData.find((element) => {
+                    return element.id === track.id + 1
+                })
+                setTrack(selectedTrack)
                 audioRef.current.play()
                 setPlayStatus(true)
                 console.log(playStatus)

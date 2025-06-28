@@ -10,12 +10,10 @@ import {Toaster} from "@/components/ui/toaster.tsx";
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
       <BrowserRouter>
             <PlayerContextProvider>
                 <App />
                 <Toaster />
             </PlayerContextProvider>
       </BrowserRouter>
-  </StrictMode>
 )

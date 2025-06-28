@@ -5,17 +5,18 @@ import {Button} from "@/components/ui/button.tsx";
 import axios from "axios";
 import {useContext, useEffect} from "react";
 import {PlayerContext} from "@/context/PlayerContext.jsx";
+import {toast} from "@/hooks/use-toast.js";
+import {DialogEditSong} from "@/components/DialogEditSong.jsx";
 
 export default function DisplayDashboard(){
     document.title = 'Next Music | Панель управления'
-    console.log(songsData)
     const {playWithId} = useContext(PlayerContext)
-    const {audioRef, volumeBar} = useContext(PlayerContext)
+    const {audioRef, volumeBar, pause} = useContext(PlayerContext)
+
 
     useEffect(() => {
         audioRef.current.volume = sessionStorage.getItem('volume')
         volumeBar.current.style.width = (audioRef.current.volume * 100) + '%'
-        console.log(audioRef.current.volume)
     }, []);
 
     let idSongList = []
@@ -33,7 +34,6 @@ export default function DisplayDashboard(){
         }
         return Math.max(idAlbumList.length) //TODO: ляляляляляля ну типо запросы удаление вся хрень
     }
-
 
     return(
         <div className='min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-zinc-100 p-8'>
@@ -53,7 +53,7 @@ export default function DisplayDashboard(){
                     </div>
                 </div>
             </div>
-            <div className='flex ml-[93%] mt-[5%]'>
+            <div className='mt-[5%] flex'>
                 <DialogAddSong/>
             </div>
             <div className="container mx-auto">
@@ -78,15 +78,36 @@ export default function DisplayDashboard(){
                                 {item.name}
                             </p>
                             <p className='text-[15px] sm:block'>{item.desc}</p>
-                            <div className='flex ml-[115%]'>
-                                <Button onClick={() => {
-                                    if(item.id === 0){
-                                        songsData.pop()
-                                        mostPopularMusic.pop()
-                                    }
-                                    axios.delete(`http://localhost:5000/api/music/${item.id}`).then(r => console.log(r))
-                                }} className='bg-black text-white font-semibold duration-300 mr-6' variant="outline">Delete Song</Button>
-                                <Button className='bg-black text-white font-semibold duration-300 ml-[10rem]' variant="outline">Edit Song</Button>
+                            <div className='flex md:ml-[115%] xl:ml-[148%]'>
+                                <div onClick={pause}>
+                                    <Button onClick={async () => {
+                                        toast({
+                                            title: 'Начался процесс удаления!',
+                                            description: 'Пожалуйста не обновляйте страницу!'
+                                        })
+                                        await axios.post(`${import.meta.env.VITE_HOST}/delete`, {
+                                            id: item.id,
+                                            publicIdImage: item.publicIdImage,
+                                            publicIdFile: item.publicIdFile
+                                        }).then(r => {
+                                            if(r.data !== 'Success!'){
+                                                toast({
+                                                    title: 'Ошибка!',
+                                                    description: 'Повторите попытку позже!'
+                                                })
+                                            }
+                                            else {
+                                                toast({
+                                                    title: 'Успешно удалено!',
+                                                    description: 'Можно обновить страницу'
+                                                })
+                                            }
+                                        })
+                                    }} className='bg-black text-white font-semibold duration-300 mr-6' variant="outline">Delete Song</Button>
+                                </div>
+                                <div onClick={pause}>
+                                    <DialogEditSong item={item}/>
+                                </div>
                             </div>
                         </div>
                     ))

@@ -4,7 +4,7 @@ import Navbar from "./Navbar.jsx";
 import SongItem from "./SongItem.jsx";
 import {albumsData, mostPopularMusic, songsData} from '@/assets/assets.js';
 import AlbumItem from "./MusicAlbum.jsx";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {PlayerContext} from "../context/PlayerContext.jsx";
 
 export default function DisplayHome() {
@@ -27,8 +27,10 @@ export default function DisplayHome() {
                     <div className=''>
                         <h1 className='my-2 font-bold text-2xl'>Самые популярные</h1>
                         <div className='overflow-auto h-full grid grid-cols-6'>
-                            {mostPopularMusic.map((item,index) => (
-                                <SongItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id} />))}
+                            {songsData.map((item,index) => (
+                                    <SongItem key={index} name={item.name} desc={item.desc} image={item.image} id={item.id} />
+                                )
+                            )}
                         </div>
                     </div>
                 </>

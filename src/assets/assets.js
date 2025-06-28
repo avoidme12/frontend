@@ -98,8 +98,8 @@ export const songsData = [
     {
         id:0,
         name: "Dark Beach",
-        image: './server/backend/assets/darkbeachlogo.jpg',
-        file: './server/backend/assets/Dark Beach.mp3',
+        image: darkBeachLogo,
+        file: dark_beach,
         desc: 'Pastel Ghost',
     },
 ]
@@ -110,8 +110,6 @@ export const mostPopularMusic = [
         name: "Dark Beach",
         image: darkBeachLogo,
         file: dark_beach,
-        desc: 'By Pastel Ghost',
-        minutes: '4',
-        seconds: '22',
+        desc: 'Pastel Ghost',
     },
 ]
