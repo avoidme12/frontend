@@ -42,9 +42,11 @@ import limerence from './limerence.mp3'
 import rainOnMyWindow from './rain-on-my-window.mp3'
 import indexFromUs from './index-of-us-slowed-reverb.mp3'
 import ineySong from './ΔXIUS LIИK,ножевые ранения - NНΞЙ.mp3'
+import smailface from './images.jpg'
 
 
 export const assets = {
+    smailface,
     bell_icon,
     home_icon,
     like_icon,
