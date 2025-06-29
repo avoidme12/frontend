@@ -11,7 +11,6 @@ import { Input } from "../components/ui/input.tsx"
 import { Label } from "../components/ui/label.tsx"
 import {useState} from "react";
 import axios from "axios";
-import 'dotenv'
 import {useToast} from "@/hooks/use-toast.js";
 
 
