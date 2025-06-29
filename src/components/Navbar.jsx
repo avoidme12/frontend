@@ -22,11 +22,9 @@ export default function Navbar() {
                                className='w-6 bg-black rounded-2xl p-[2px] cursor-pointer'/>
                     <ArrowRight onClick={() => navigate(1)} size={30}
                                 className='w-6 bg-black rounded-2xl p-[2px] cursor-pointer'/>
-                    <a href="/dashboard">
-                        <Button className='bg-black rounded-md font-semibold cursor-pointer'>
+                        <Button className='bg-black rounded-md font-semibold cursor-pointer' onClick={() => navigate(`/dashboard`)}>
                             Admin panel
                         </Button>
-                    </a>
                 </div>
                 <div className='flex items-center gap-4'>
                     {/*<h1 onClick={() => {*/}
