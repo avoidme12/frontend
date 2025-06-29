@@ -11,9 +11,7 @@ import { Input } from "../components/ui/input.tsx"
 import { Label } from "../components/ui/label.tsx"
 import {useContext, useState} from "react";
 import axios from "axios";
-import 'dotenv'
 import {useToast} from "@/hooks/use-toast.js";
-import {PlayerContext} from "@/context/PlayerContext.jsx";
 
 
 export function DialogAddSong() {
