@@ -14,9 +14,9 @@ on backend:
 npm run start:dev
 ```
 
-##Enjoy
+## Enjoy
 
-###Libraries
+### Libraries
 - [shadcn/ui('https://ui.shadcn.com/')]
 - [lucide-react('https://lucide.dev/guide/packages/lucide-react')]
 - [electron.js('https://www.electronjs.org/ru/')]
