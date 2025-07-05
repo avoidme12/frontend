@@ -1,6 +1,27 @@
 # Next Music
 # React + TypeScript + Vite
 
+How to start?
+on frontend:
+
+```bash
+npm i
+npm run dev:react
+```
+
+on backend: 
+```bash
+npm run start:dev
+```
+
+##Enjoy
+
+###Libraries
+- [shadcn/ui('https://ui.shadcn.com/')]
+- [lucide-react('https://lucide.dev/guide/packages/lucide-react')]
+- [electron.js('https://www.electronjs.org/ru/')]
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
